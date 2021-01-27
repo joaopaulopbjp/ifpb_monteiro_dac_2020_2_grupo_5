@@ -1,2 +1,3 @@
-# ifpb_monteiro_dac_2020_2_grupo_5
-ifpb_monteiro_dac_2020_2_grupo_5
+# Projeto da disciplina de DAC - 2020.2 - grupo 5
+## Sistema Corporativo de uma Loja de Livros on line
+
