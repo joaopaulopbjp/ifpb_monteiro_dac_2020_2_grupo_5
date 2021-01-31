@@ -20,8 +20,8 @@ services:
     depends_on:
       - mysql
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/book?useLegacyDatetimeCode=false&serverTimezone=America/Sao_Paulo&createDatabaseIfNotExist=true
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/bookzzz?useLegacyDatetimeCode=false&serverTimezone=America/Sao_Paulo&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: pass
     ports:
       - 80:8080

@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BookRepository extends JpaRepository<Book, Long>{
   
-  Page<Book> findAllByTitle(String search, Pageable pageable);
+  Page<Book> findAll(Pageable pageable);
 
 }

@@ -4,6 +4,9 @@ import tk.bookzzz.api.model.Book;
 import tk.bookzzz.api.repository.BookRepository;
 
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Sort;
@@ -37,10 +40,17 @@ public class BookService {
     bookRepository.delete(book);
   }
 
-  public Page<Book> findBooks(String search, int page, int size){
+  public Page<Book> findBooks(int page, int size){
     PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "price");
-    return bookRepository.findAllByTitle(search, pageRequest);
+    return bookRepository.findAll(pageRequest);
   }
 
+  public List<Book> findAll(){
+    return bookRepository.findAll();
+  }
+
+  public Book findById(long id) throws Exception{
+    return bookRepository.findById(id).orElseThrow(() -> new Exception("Book not finded"));
+  }
 
 }

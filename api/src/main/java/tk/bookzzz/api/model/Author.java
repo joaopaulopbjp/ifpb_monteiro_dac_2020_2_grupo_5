@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +19,6 @@ import javax.persistence.JoinColumn;
 
 @Entity
 @Data
-@NoArgsConstructor
 @Table(name = "author")
 public class Author implements Serializable{
 
@@ -25,16 +26,18 @@ public class Author implements Serializable{
 
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String name;
 
   @ManyToMany
+  @JsonIgnore
   @JoinTable(
   name = "book_author", 
   joinColumns = @JoinColumn(name = "author_id"), 
-  inverseJoinColumns = @JoinColumn(name = "book_id"))
+  inverseJoinColumns = @JoinColumn(name = "book_id")
+  )
   private List<Book> books;
 
 }

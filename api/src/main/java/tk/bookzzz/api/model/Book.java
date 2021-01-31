@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -15,7 +14,6 @@ import javax.persistence.ManyToMany;
 
 @Entity
 @Data
-@NoArgsConstructor
 @Table(name = "book")
 public class Book implements Serializable{
 
@@ -23,7 +21,7 @@ public class Book implements Serializable{
 
   
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
   private String title;
