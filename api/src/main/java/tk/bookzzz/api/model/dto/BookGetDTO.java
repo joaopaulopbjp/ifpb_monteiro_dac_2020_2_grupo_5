@@ -5,13 +5,13 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class BookPostDTO {
+public class BookGetDTO {
   
+  private Long id;
   private String title;
   private String subtitle;
 
-  private List<Long> authorsIds;
+  private List<String> authors;
   private int year;
   private double price;
-  
 }

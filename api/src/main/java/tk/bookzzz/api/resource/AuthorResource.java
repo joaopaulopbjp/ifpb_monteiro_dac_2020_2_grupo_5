@@ -1,8 +1,10 @@
 package tk.bookzzz.api.resource;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tk.bookzzz.api.model.Author;
+import tk.bookzzz.api.model.Book;
+import tk.bookzzz.api.model.dto.AuthorGetDTO;
 import tk.bookzzz.api.service.AuthorService;
 
 @RestController
@@ -21,23 +25,33 @@ public class AuthorResource {
   @Autowired
   private AuthorService authorService;
 
+  @Autowired
+  private ModelMapper modelMapper;
+
   @PostMapping(path= "/authors")
-  public ResponseEntity<Author> saveAuthor(@RequestBody Author author){
+  public ResponseEntity<AuthorGetDTO> saveAuthor(@RequestBody Author author){
+    author.setBooks(new ArrayList<Book>());
     Author savedAuthor = authorService.save(author);
-    return ResponseEntity.status(HttpStatus.CREATED).body(savedAuthor);
+    return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedAuthor, AuthorGetDTO.class));
   }
 
   @GetMapping(path= "/authors")
-  public ResponseEntity<List<Author>> getAuthors(){
-    return ResponseEntity.status(HttpStatus.OK).body(authorService.findAll());
+  public ResponseEntity<List<AuthorGetDTO>> getAuthors(){
+    List<Author> authors  = authorService.findAll();
+    List<AuthorGetDTO> authorsGetDTO = authors.stream()
+      .map(author -> modelMapper.map(author, AuthorGetDTO.class))
+      .collect(Collectors.toList());
+    return ResponseEntity.status(HttpStatus.OK).body(authorsGetDTO);
   }
 
   @GetMapping(path= "/authors/{id}")
-  public ResponseEntity<Author> getAuthor(@PathVariable Long id){
+  public ResponseEntity<AuthorGetDTO> getAuthor(@PathVariable Long id){
     try {
-      return ResponseEntity.status(HttpStatus.OK).body(authorService.findById(id));
+      Author author = authorService.findById(id);
+      AuthorGetDTO authorGetDTO = modelMapper.map(author, AuthorGetDTO.class);
+      return ResponseEntity.status(HttpStatus.OK).body(authorGetDTO);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new Author());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AuthorGetDTO());
     }
   }
 
