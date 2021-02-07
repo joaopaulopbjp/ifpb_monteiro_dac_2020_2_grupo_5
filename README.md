@@ -31,7 +31,7 @@ in case of any problems find help on this [link](https://docs.docker.com/engine/
  			$ sudo chmod +x /usr/local/bin/docker-compose containerd.io
 	- Check installation
 			
-			$ docker --version
+			$ docker-compose --version
 in case of any problems find help on this [link](https://docs.docker.com/compose/install/)
 - **API Rest Client** 
 	- Try [Insomnia Core](https://insomnia.rest/download/core/?&ref=) or [Postman](https://www.postman.com/downloads/)
