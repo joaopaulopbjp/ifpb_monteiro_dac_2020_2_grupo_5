@@ -10,8 +10,11 @@ public class BookGetDTO {
   private Long id;
   private String title;
   private String subtitle;
+  private String description;
+  private String isbn;
+  private int year;
+  private String coverImg;
 
   private List<String> authors;
-  private int year;
-  private double price;
+
 }

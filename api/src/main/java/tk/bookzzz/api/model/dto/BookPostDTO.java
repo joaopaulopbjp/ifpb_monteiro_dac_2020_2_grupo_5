@@ -9,9 +9,13 @@ public class BookPostDTO {
   
   private String title;
   private String subtitle;
+  private String description;
+  private String isbn;
+  private int year;
+  private String coverImg;
 
   private List<Long> authorsIds;
-  private int year;
-  private double price;
+  
+  
   
 }

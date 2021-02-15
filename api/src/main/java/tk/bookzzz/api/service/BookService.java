@@ -25,18 +25,17 @@ public class BookService {
   }
 
   public Book update(Book updatedBook) throws Exception{
-    Book book = bookRepository.findById(updatedBook.getId()).orElseThrow(() -> new Exception("Book not finded"));
+    Book book = bookRepository.findById(updatedBook.getId()).orElseThrow(() -> new Exception("Book not found"));
     book.setTitle(updatedBook.getTitle());
     book.setSubtitle(updatedBook.getSubtitle());
     book.setAuthors(updatedBook.getAuthors());
     book.setYear(updatedBook.getYear());
-    book.setPrice(updatedBook.getPrice());
 
     return save(book);
   }
   
   public void delete(Long id)throws Exception{
-    Book book = bookRepository.findById(id).orElseThrow(() -> new Exception("Book not finded"));;
+    Book book = bookRepository.findById(id).orElseThrow(() -> new Exception("Book not found"));;
     bookRepository.delete(book);
   }
 
@@ -50,7 +49,7 @@ public class BookService {
   }
 
   public Book findById(long id) throws Exception{
-    return bookRepository.findById(id).orElseThrow(() -> new Exception("Book not finded"));
+    return bookRepository.findById(id).orElseThrow(() -> new Exception("Book not found"));
   }
 
 }

@@ -10,7 +10,9 @@ import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Data
@@ -26,10 +28,21 @@ public class Book implements Serializable{
 
   private String title;
   private String subtitle;
+  private String description;
+  private String isbn;
+  private int year;
+  private String coverImg;
+
+  @ManyToOne
+  @JoinColumn(name="category_id", nullable=false)
+  private Category category;
+
+  @ManyToOne
+  @JoinColumn(name="publisher_id", nullable=false)
+  private Publisher publisher;
+  
 
   @ManyToMany(mappedBy = "books")
-  private List<Author> authors;
-  private int year;
-  private double price;
+  private List<Author> authors; 
 
 }
