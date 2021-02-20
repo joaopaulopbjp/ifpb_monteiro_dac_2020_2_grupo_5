@@ -14,6 +14,8 @@ public class BookPostDTO {
   private int year;
   private String coverImg;
 
+  private Long category;
+  private Long publisher;
   private List<Long> authorsIds;
   
   

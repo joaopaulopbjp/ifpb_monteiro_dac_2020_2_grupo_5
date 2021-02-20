@@ -9,5 +9,5 @@ public class PublisherGetDTO {
   
   private Long id;
   private String name;
-  private List<String> books;
+  private int booksCount;
 }

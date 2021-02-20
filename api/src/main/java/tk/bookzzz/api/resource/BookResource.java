@@ -18,19 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tk.bookzzz.api.model.Author;
 import tk.bookzzz.api.model.Book;
+import tk.bookzzz.api.model.Category;
+import tk.bookzzz.api.model.Publisher;
 import tk.bookzzz.api.model.dto.BookGetDTO;
 import tk.bookzzz.api.model.dto.BookPostDTO;
 import tk.bookzzz.api.service.AuthorService;
 import tk.bookzzz.api.service.BookService;
+import tk.bookzzz.api.service.CategoryService;
+import tk.bookzzz.api.service.PublisherService;
 
 @RestController
 public class BookResource {
   
   @Autowired
   private BookService bookService;
+  
+  @Autowired
+  private CategoryService categoryService;
+  
+  @Autowired
+  private PublisherService publisherService;
 
   @Autowired
   private AuthorService authorService;
+
 
   @Autowired
   private ModelMapper modelMapper;
@@ -41,11 +52,20 @@ public class BookResource {
 
     newBook.setAuthors(new ArrayList<Author>());
     try {
+      Category category = categoryService.findById(book.getCategory());
+      category.getBooks().add(newBook);
+      newBook.setCategory(category);
+
+      Publisher publisher = publisherService.findById(book.getPublisher());
+      publisher.getBooks().add(newBook);
+      newBook.setPublisher(publisher);
+      
       for(Long id: book.getAuthorsIds()){
         Author author = authorService.findById(id);
         author.getBooks().add(newBook);
         newBook.getAuthors().add(author);
       }
+      
       Book savedBook = bookService.save(newBook);
       return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedBook, BookGetDTO.class));
       

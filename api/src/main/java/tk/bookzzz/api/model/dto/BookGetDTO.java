@@ -15,6 +15,8 @@ public class BookGetDTO {
   private int year;
   private String coverImg;
 
+  private String categoryName;
+  private String publisherName;
   private List<String> authors;
 
 }

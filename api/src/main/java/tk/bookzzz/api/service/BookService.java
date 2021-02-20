@@ -40,7 +40,7 @@ public class BookService {
   }
 
   public Page<Book> findBooks(int page, int size){
-    PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "price");
+    PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "title");
     return bookRepository.findAll(pageRequest);
   }
 

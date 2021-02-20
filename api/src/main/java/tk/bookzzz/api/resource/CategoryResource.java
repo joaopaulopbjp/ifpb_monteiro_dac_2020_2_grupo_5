@@ -30,10 +30,10 @@ public class CategoryResource {
   private ModelMapper modelMapper;
 
   @PostMapping(path= "/categories")
-  public ResponseEntity<CategoryGetDTO> saveCategory(@RequestBody Category category){
+  public ResponseEntity<Category> saveCategory(@RequestBody Category category){
     category.setBooks(new ArrayList<Book>());
     Category savedCategory = categoryService.save(category);
-    return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedCategory, CategoryGetDTO.class));
+    return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
   }
 
   @GetMapping(path= "/categories")
