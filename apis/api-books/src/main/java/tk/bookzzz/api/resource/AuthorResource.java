@@ -28,14 +28,14 @@ public class AuthorResource {
   @Autowired
   private ModelMapper modelMapper;
 
-  @PostMapping(path= "/authors")
+  @PostMapping(path= Paths.Authors.PATH)
   public ResponseEntity<AuthorGetDTO> saveAuthor(@RequestBody Author author){
     author.setBooks(new ArrayList<Book>());
     Author savedAuthor = authorService.save(author);
     return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedAuthor, AuthorGetDTO.class));
   }
 
-  @GetMapping(path= "/authors")
+  @GetMapping(path= Paths.Authors.PATH)
   public ResponseEntity<List<AuthorGetDTO>> getAuthors(){
     List<Author> authors  = authorService.findAll();
     List<AuthorGetDTO> authorsGetDTO = authors.stream()
@@ -44,7 +44,7 @@ public class AuthorResource {
     return ResponseEntity.status(HttpStatus.OK).body(authorsGetDTO);
   }
 
-  @GetMapping(path= "/authors/{id}")
+  @GetMapping(path= Paths.Authors.PATH + "/{id}")
   public ResponseEntity<AuthorGetDTO> getAuthor(@PathVariable Long id){
     try {
       Author author = authorService.findById(id);

@@ -6,6 +6,7 @@ import tk.bookzzz.api.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,10 +27,16 @@ public class BookService {
 
   public Book update(Book updatedBook) throws Exception{
     Book book = bookRepository.findById(updatedBook.getId()).orElseThrow(() -> new Exception("Book not found"));
-    book.setTitle(updatedBook.getTitle());
-    book.setSubtitle(updatedBook.getSubtitle());
-    book.setAuthors(updatedBook.getAuthors());
-    book.setYear(updatedBook.getYear());
+    
+    book.setTitle(Optional.ofNullable(updatedBook.getTitle()).orElse(book.getTitle()));
+    book.setSubtitle(Optional.ofNullable(updatedBook.getSubtitle()).orElse(book.getSubtitle()));
+    book.setDescription(Optional.ofNullable(updatedBook.getDescription()).orElse(book.getDescription()));
+    book.setIsbn(Optional.ofNullable(updatedBook.getIsbn()).orElse(book.getIsbn()));
+    book.setYear(Optional.ofNullable(updatedBook.getYear()).orElse(book.getYear()));
+    book.setCoverImg(Optional.ofNullable(updatedBook.getCoverImg()).orElse(book.getCoverImg()));
+    book.setCategory(Optional.ofNullable(updatedBook.getCategory()).orElse(book.getCategory()));
+    book.setPublisher(Optional.ofNullable(updatedBook.getPublisher()).orElse(book.getPublisher()));
+    book.setAuthors(Optional.ofNullable(updatedBook.getAuthors()).orElse(book.getAuthors()));
 
     return save(book);
   }

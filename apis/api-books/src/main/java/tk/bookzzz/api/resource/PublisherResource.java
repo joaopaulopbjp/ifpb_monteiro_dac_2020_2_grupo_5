@@ -29,14 +29,14 @@ public class PublisherResource {
   private ModelMapper modelMapper;
 
 
-  @PostMapping(path= "/publishers")
+  @PostMapping(path= Paths.Publishers.PATH)
   public ResponseEntity<PublisherGetDTO> savePublisher(@RequestBody Publisher publisher){
     publisher.setBooks(new ArrayList<Book>());
     Publisher savedPublisher = publisherService.save(publisher);
     return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedPublisher, PublisherGetDTO.class));
   }
 
-  @GetMapping(path= "/publishers")
+  @GetMapping(path= Paths.Publishers.PATH)
   public ResponseEntity<List<PublisherGetDTO>> getPublishers(){
     List<Publisher> publishers  = publisherService.findAll();
     List<PublisherGetDTO> publishersGetDTO = publishers.stream()
@@ -45,7 +45,7 @@ public class PublisherResource {
     return ResponseEntity.status(HttpStatus.OK).body(publishersGetDTO);
   }
 
-  @GetMapping(path= "/publishers/{id}")
+  @GetMapping(path= Paths.Publishers.PATH + "/{id}")
   public ResponseEntity<PublisherGetDTO> getPublisher(@PathVariable Long id){
     try {
       Publisher publisher = publisherService.findById(id);

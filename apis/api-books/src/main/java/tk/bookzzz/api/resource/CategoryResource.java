@@ -29,14 +29,14 @@ public class CategoryResource {
   @Autowired
   private ModelMapper modelMapper;
 
-  @PostMapping(path= "/categories")
+  @PostMapping(path= Paths.Categories.PATH)
   public ResponseEntity<Category> saveCategory(@RequestBody Category category){
     category.setBooks(new ArrayList<Book>());
     Category savedCategory = categoryService.save(category);
     return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
   }
 
-  @GetMapping(path= "/categories")
+  @GetMapping(path= Paths.Categories.PATH)
   public ResponseEntity<List<CategoryGetDTO>> getCategories(){
     List<Category> categories  = categoryService.findAll();
     List<CategoryGetDTO> categoriesGetDTO = categories.stream()
@@ -45,7 +45,7 @@ public class CategoryResource {
     return ResponseEntity.status(HttpStatus.OK).body(categoriesGetDTO);
   }
 
-  @GetMapping(path= "/categories/{id}")
+  @GetMapping(path= Paths.Categories.PATH + "/{id}")
   public ResponseEntity<CategoryGetDTO> getCategory(@PathVariable Long id){
     try {
       Category category = categoryService.findById(id);

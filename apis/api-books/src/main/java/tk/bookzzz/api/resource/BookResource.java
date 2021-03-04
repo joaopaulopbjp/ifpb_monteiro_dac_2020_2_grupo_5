@@ -46,8 +46,8 @@ public class BookResource {
   @Autowired
   private ModelMapper modelMapper;
 
-  @PostMapping(path= "/books")
-  public ResponseEntity<BookGetDTO> saveAuthor(@RequestBody BookPostDTO book){
+  @PostMapping(path= Paths.Books.PATH)
+  public ResponseEntity<BookGetDTO> saveBook(@RequestBody BookPostDTO book){
     Book newBook = modelMapper.map(book, Book.class);
 
     newBook.setAuthors(new ArrayList<Author>());
@@ -74,22 +74,22 @@ public class BookResource {
     }
   }
 
-  @GetMapping(path = "/books")
+  @GetMapping(path = Paths.Books.PATH)
   public ResponseEntity<Page<BookGetDTO>> getBooks(){
     return getPageBooks(0);
   }
 
-  @GetMapping(path = "/books/page/{pgNumber}")
+  @GetMapping(path = Paths.Books.PATH + "/page/{pgNumber}")
   public ResponseEntity<Page<BookGetDTO>> getPageBooks(@PathVariable int pgNumber){
     Page<Book> page  = bookService.findBooks(pgNumber, 5);
     Page<BookGetDTO> pageDTO = page.map(Book -> modelMapper.map(Book, BookGetDTO.class));
     return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
   }
 
-  @PutMapping(path = "/books/{id}")
+  @PutMapping(path = Paths.Books.PATH + "/{id}")
   public ResponseEntity<BookGetDTO> update(@PathVariable long id, @RequestBody BookPostDTO book){
     Book newBook = modelMapper.map(book, Book.class);
-
+    newBook.setId(id);
     newBook.setAuthors(new ArrayList<Author>());
     try {
       Book helpBook = bookService.findById(id);
@@ -101,8 +101,8 @@ public class BookResource {
         author.getBooks().add(newBook);
         newBook.getAuthors().add(author);
       }
-      newBook.setId(id);
-      Book savedBook = bookService.save(newBook);
+      
+      Book savedBook = bookService.update(newBook);
       return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(savedBook, BookGetDTO.class));
       
     } catch (Exception e) {
@@ -110,7 +110,7 @@ public class BookResource {
     }
   }
 
-  @DeleteMapping(path = "/books/{id}")
+  @DeleteMapping(path = Paths.Books.PATH + "/{id}")
   public ResponseEntity<BookGetDTO> deleteBook(@PathVariable long id){
     try {
       Book book = bookService.findById(id);
