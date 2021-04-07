@@ -5,8 +5,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class BookPostDTO {
+public class BookResponseDTO {
   
+  private Long id;
   private String title;
   private String subtitle;
   private String description;
@@ -14,10 +15,8 @@ public class BookPostDTO {
   private int year;
   private String coverImg;
 
-  private Long category;
-  private Long publisher;
-  private List<Long> authorsIds;
-  
-  
-  
+  private String categoryName;
+  private String publisherName;
+  private List<String> authors;
+
 }

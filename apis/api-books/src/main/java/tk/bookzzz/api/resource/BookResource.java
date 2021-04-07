@@ -20,8 +20,8 @@ import tk.bookzzz.api.model.Author;
 import tk.bookzzz.api.model.Book;
 import tk.bookzzz.api.model.Category;
 import tk.bookzzz.api.model.Publisher;
-import tk.bookzzz.api.model.dto.BookGetDTO;
-import tk.bookzzz.api.model.dto.BookPostDTO;
+import tk.bookzzz.api.model.dto.BookResponseDTO;
+import tk.bookzzz.api.model.dto.BookRequestDTO;
 import tk.bookzzz.api.service.AuthorService;
 import tk.bookzzz.api.service.BookService;
 import tk.bookzzz.api.service.CategoryService;
@@ -47,7 +47,7 @@ public class BookResource {
   private ModelMapper modelMapper;
 
   @PostMapping(path= Paths.Books.PATH)
-  public ResponseEntity<BookGetDTO> saveBook(@RequestBody BookPostDTO book){
+  public ResponseEntity<BookResponseDTO> saveBook(@RequestBody BookRequestDTO book){
     Book newBook = modelMapper.map(book, Book.class);
 
     newBook.setAuthors(new ArrayList<Author>());
@@ -67,27 +67,27 @@ public class BookResource {
       }
       
       Book savedBook = bookService.save(newBook);
-      return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedBook, BookGetDTO.class));
+      return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedBook, BookResponseDTO.class));
       
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BookGetDTO());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BookResponseDTO());
     }
   }
 
   @GetMapping(path = Paths.Books.PATH)
-  public ResponseEntity<Page<BookGetDTO>> getBooks(){
+  public ResponseEntity<Page<BookResponseDTO>> getBooks(){
     return getPageBooks(0);
   }
 
   @GetMapping(path = Paths.Books.PATH + "/page/{pgNumber}")
-  public ResponseEntity<Page<BookGetDTO>> getPageBooks(@PathVariable int pgNumber){
+  public ResponseEntity<Page<BookResponseDTO>> getPageBooks(@PathVariable int pgNumber){
     Page<Book> page  = bookService.findBooks(pgNumber, 5);
-    Page<BookGetDTO> pageDTO = page.map(Book -> modelMapper.map(Book, BookGetDTO.class));
+    Page<BookResponseDTO> pageDTO = page.map(Book -> modelMapper.map(Book, BookResponseDTO.class));
     return ResponseEntity.status(HttpStatus.OK).body(pageDTO);
   }
 
   @PutMapping(path = Paths.Books.PATH + "/{id}")
-  public ResponseEntity<BookGetDTO> update(@PathVariable long id, @RequestBody BookPostDTO book){
+  public ResponseEntity<BookResponseDTO> update(@PathVariable long id, @RequestBody BookRequestDTO book){
     Book newBook = modelMapper.map(book, Book.class);
     newBook.setId(id);
     newBook.setAuthors(new ArrayList<Author>());
@@ -103,24 +103,24 @@ public class BookResource {
       }
       
       Book savedBook = bookService.update(newBook);
-      return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(savedBook, BookGetDTO.class));
+      return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(savedBook, BookResponseDTO.class));
       
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BookGetDTO());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BookResponseDTO());
     }
   }
 
   @DeleteMapping(path = Paths.Books.PATH + "/{id}")
-  public ResponseEntity<BookGetDTO> deleteBook(@PathVariable long id){
+  public ResponseEntity<BookResponseDTO> deleteBook(@PathVariable long id){
     try {
       Book book = bookService.findById(id);
       for(Author author: book.getAuthors()){
         author.getBooks().remove(book);
       }
       bookService.delete(id);
-      return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(book, BookGetDTO.class));
+      return ResponseEntity.status(HttpStatus.OK).body(modelMapper.map(book, BookResponseDTO.class));
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BookGetDTO());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new BookResponseDTO());
     }
     
   }

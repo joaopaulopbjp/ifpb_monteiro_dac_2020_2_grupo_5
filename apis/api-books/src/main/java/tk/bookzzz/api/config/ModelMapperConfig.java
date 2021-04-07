@@ -13,10 +13,10 @@ import tk.bookzzz.api.model.Book;
 import tk.bookzzz.api.model.converter.AuthorsListConverter;
 import tk.bookzzz.api.model.converter.BooksCountConverter;
 import tk.bookzzz.api.model.converter.BooksListConverter;
-import tk.bookzzz.api.model.dto.CategoryGetDTO;
-import tk.bookzzz.api.model.dto.PublisherGetDTO;
-import tk.bookzzz.api.model.dto.AuthorGetDTO;
-import tk.bookzzz.api.model.dto.BookGetDTO;
+import tk.bookzzz.api.model.dto.CategoryResponseDTO;
+import tk.bookzzz.api.model.dto.PublisherResponseDTO;
+import tk.bookzzz.api.model.dto.AuthorResponseDTO;
+import tk.bookzzz.api.model.dto.BookResponseDTO;
 
 @Configuration
 public class ModelMapperConfig {
@@ -29,35 +29,35 @@ public class ModelMapperConfig {
     .setFieldAccessLevel(AccessLevel.PRIVATE);
 
     
-    TypeMap<Book, BookGetDTO> bookTypeMap;
-    bookTypeMap = modelMapper.createTypeMap(Book.class, BookGetDTO.class);
+    TypeMap<Book, BookResponseDTO> bookTypeMap;
+    bookTypeMap = modelMapper.createTypeMap(Book.class, BookResponseDTO.class);
     bookTypeMap.addMappings(
       bookMapper -> bookMapper.using(new AuthorsListConverter())
-      .map(Book::getAuthors, BookGetDTO::setAuthors)
+      .map(Book::getAuthors, BookResponseDTO::setAuthors)
       );
     
 
-    TypeMap<Category, CategoryGetDTO> categoryTypeMap;
-    categoryTypeMap = modelMapper.createTypeMap(Category.class, CategoryGetDTO.class);
+    TypeMap<Category, CategoryResponseDTO> categoryTypeMap;
+    categoryTypeMap = modelMapper.createTypeMap(Category.class, CategoryResponseDTO.class);
     categoryTypeMap.addMappings(
       categoryMapper -> categoryMapper.using(new BooksCountConverter())
-      .map(Category::getBooks, CategoryGetDTO::setBooksCount)
+      .map(Category::getBooks, CategoryResponseDTO::setBooksCount)
     );
 
 
-    TypeMap<Publisher, PublisherGetDTO> publisherTypeMap;
-    publisherTypeMap = modelMapper.createTypeMap(Publisher.class, PublisherGetDTO.class);
+    TypeMap<Publisher, PublisherResponseDTO> publisherTypeMap;
+    publisherTypeMap = modelMapper.createTypeMap(Publisher.class, PublisherResponseDTO.class);
     publisherTypeMap.addMappings(
       publisherMapper -> publisherMapper.using(new BooksCountConverter())
-      .map(Publisher::getBooks, PublisherGetDTO::setBooksCount)
+      .map(Publisher::getBooks, PublisherResponseDTO::setBooksCount)
     );
 
 
-    TypeMap<Author, AuthorGetDTO> authorTypeMap;
-    authorTypeMap = modelMapper.createTypeMap(Author.class, AuthorGetDTO.class);
+    TypeMap<Author, AuthorResponseDTO> authorTypeMap;
+    authorTypeMap = modelMapper.createTypeMap(Author.class, AuthorResponseDTO.class);
     authorTypeMap.addMappings(
       authorMapper -> authorMapper.using(new BooksListConverter())
-      .map(Author::getBooks, AuthorGetDTO::setBooks)
+      .map(Author::getBooks, AuthorResponseDTO::setBooks)
     );
       
     

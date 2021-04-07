@@ -1,11 +1,13 @@
 package tk.bookzzz.api.model.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
-public class PublisherGetDTO {
+public class AuthorResponseDTO {
   
   private Long id;
   private String name;
-  private int booksCount;
+  private List<String> books;
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tk.bookzzz.api.model.Publisher;
 import tk.bookzzz.api.model.Book;
-import tk.bookzzz.api.model.dto.PublisherGetDTO;
+import tk.bookzzz.api.model.dto.PublisherResponseDTO;
 import tk.bookzzz.api.service.PublisherService;
 
 @RestController
@@ -30,29 +30,29 @@ public class PublisherResource {
 
 
   @PostMapping(path= Paths.Publishers.PATH)
-  public ResponseEntity<PublisherGetDTO> savePublisher(@RequestBody Publisher publisher){
+  public ResponseEntity<PublisherResponseDTO> savePublisher(@RequestBody Publisher publisher){
     publisher.setBooks(new ArrayList<Book>());
     Publisher savedPublisher = publisherService.save(publisher);
-    return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedPublisher, PublisherGetDTO.class));
+    return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedPublisher, PublisherResponseDTO.class));
   }
 
   @GetMapping(path= Paths.Publishers.PATH)
-  public ResponseEntity<List<PublisherGetDTO>> getPublishers(){
+  public ResponseEntity<List<PublisherResponseDTO>> getPublishers(){
     List<Publisher> publishers  = publisherService.findAll();
-    List<PublisherGetDTO> publishersGetDTO = publishers.stream()
-      .map(publisher -> modelMapper.map(publisher, PublisherGetDTO.class))
+    List<PublisherResponseDTO> publishersGetDTO = publishers.stream()
+      .map(publisher -> modelMapper.map(publisher, PublisherResponseDTO.class))
       .collect(Collectors.toList());
     return ResponseEntity.status(HttpStatus.OK).body(publishersGetDTO);
   }
 
   @GetMapping(path= Paths.Publishers.PATH + "/{id}")
-  public ResponseEntity<PublisherGetDTO> getPublisher(@PathVariable Long id){
+  public ResponseEntity<PublisherResponseDTO> getPublisher(@PathVariable Long id){
     try {
       Publisher publisher = publisherService.findById(id);
-      PublisherGetDTO publisherGetDTO= modelMapper.map(publisher, PublisherGetDTO.class);
+      PublisherResponseDTO publisherGetDTO= modelMapper.map(publisher, PublisherResponseDTO.class);
       return ResponseEntity.status(HttpStatus.OK).body(publisherGetDTO);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PublisherGetDTO());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new PublisherResponseDTO());
     }
   }
   

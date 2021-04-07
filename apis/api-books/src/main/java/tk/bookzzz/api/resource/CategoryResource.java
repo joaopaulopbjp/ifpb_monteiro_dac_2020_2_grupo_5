@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tk.bookzzz.api.model.Category;
 import tk.bookzzz.api.model.Book;
-import tk.bookzzz.api.model.dto.CategoryGetDTO;
+import tk.bookzzz.api.model.dto.CategoryResponseDTO;
 import tk.bookzzz.api.service.CategoryService;
 
 @RestController
@@ -37,22 +37,22 @@ public class CategoryResource {
   }
 
   @GetMapping(path= Paths.Categories.PATH)
-  public ResponseEntity<List<CategoryGetDTO>> getCategories(){
+  public ResponseEntity<List<CategoryResponseDTO>> getCategories(){
     List<Category> categories  = categoryService.findAll();
-    List<CategoryGetDTO> categoriesGetDTO = categories.stream()
-      .map(category -> modelMapper.map(category, CategoryGetDTO.class))
+    List<CategoryResponseDTO> categoriesGetDTO = categories.stream()
+      .map(category -> modelMapper.map(category, CategoryResponseDTO.class))
       .collect(Collectors.toList());
     return ResponseEntity.status(HttpStatus.OK).body(categoriesGetDTO);
   }
 
   @GetMapping(path= Paths.Categories.PATH + "/{id}")
-  public ResponseEntity<CategoryGetDTO> getCategory(@PathVariable Long id){
+  public ResponseEntity<CategoryResponseDTO> getCategory(@PathVariable Long id){
     try {
       Category category = categoryService.findById(id);
-      CategoryGetDTO categoryGetDTO= modelMapper.map(category, CategoryGetDTO.class);
+      CategoryResponseDTO categoryGetDTO= modelMapper.map(category, CategoryResponseDTO.class);
       return ResponseEntity.status(HttpStatus.OK).body(categoryGetDTO);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CategoryGetDTO());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new CategoryResponseDTO());
     }
   }
 

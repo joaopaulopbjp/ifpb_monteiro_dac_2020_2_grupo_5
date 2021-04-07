@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tk.bookzzz.api.model.Author;
 import tk.bookzzz.api.model.Book;
-import tk.bookzzz.api.model.dto.AuthorGetDTO;
+import tk.bookzzz.api.model.dto.AuthorResponseDTO;
 import tk.bookzzz.api.service.AuthorService;
 
 @RestController
@@ -29,29 +29,29 @@ public class AuthorResource {
   private ModelMapper modelMapper;
 
   @PostMapping(path= Paths.Authors.PATH)
-  public ResponseEntity<AuthorGetDTO> saveAuthor(@RequestBody Author author){
+  public ResponseEntity<AuthorResponseDTO> saveAuthor(@RequestBody Author author){
     author.setBooks(new ArrayList<Book>());
     Author savedAuthor = authorService.save(author);
-    return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedAuthor, AuthorGetDTO.class));
+    return ResponseEntity.status(HttpStatus.CREATED).body(modelMapper.map(savedAuthor, AuthorResponseDTO.class));
   }
 
   @GetMapping(path= Paths.Authors.PATH)
-  public ResponseEntity<List<AuthorGetDTO>> getAuthors(){
+  public ResponseEntity<List<AuthorResponseDTO>> getAuthors(){
     List<Author> authors  = authorService.findAll();
-    List<AuthorGetDTO> authorsGetDTO = authors.stream()
-      .map(author -> modelMapper.map(author, AuthorGetDTO.class))
+    List<AuthorResponseDTO> authorsGetDTO = authors.stream()
+      .map(author -> modelMapper.map(author, AuthorResponseDTO.class))
       .collect(Collectors.toList());
     return ResponseEntity.status(HttpStatus.OK).body(authorsGetDTO);
   }
 
   @GetMapping(path= Paths.Authors.PATH + "/{id}")
-  public ResponseEntity<AuthorGetDTO> getAuthor(@PathVariable Long id){
+  public ResponseEntity<AuthorResponseDTO> getAuthor(@PathVariable Long id){
     try {
       Author author = authorService.findById(id);
-      AuthorGetDTO authorGetDTO = modelMapper.map(author, AuthorGetDTO.class);
+      AuthorResponseDTO authorGetDTO = modelMapper.map(author, AuthorResponseDTO.class);
       return ResponseEntity.status(HttpStatus.OK).body(authorGetDTO);
     } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AuthorGetDTO());
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new AuthorResponseDTO());
     }
   }
 
