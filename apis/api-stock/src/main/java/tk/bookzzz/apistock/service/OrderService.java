@@ -23,8 +23,8 @@ public class OrderService {
     return orderRepository.save(order);
   }
 
-  public Order update(Order order) throws Exception{
-    Order updatedOrder = orderRepository.findById(order.getId()).orElseThrow(() -> new Exception("Order not found"));
+  public Order update(Order order, Long id) throws Exception{
+    Order updatedOrder = orderRepository.findById(id).orElseThrow(() -> new Exception("Order not found"));
     
     updatedOrder.setProducts(Optional.ofNullable(order.getProducts()).orElse(updatedOrder.getProducts()));
     updatedOrder.setTimestamp(Optional.ofNullable(order.getTimestamp()).orElse(updatedOrder.getTimestamp()));
