@@ -24,8 +24,8 @@ public class ProductService {
     return productRepository.save(product);
   }
 
-  public Product update(Product product) throws Exception{
-    Product updatedProduct = productRepository.findById(product.getId()).orElseThrow(() -> new Exception("Product not found"));
+  public Product update(Product product, Long id) throws Exception{
+    Product updatedProduct = productRepository.findById(id).orElseThrow(() -> new Exception("Product not found"));
     
     updatedProduct.setPrice(Optional.ofNullable(product.getPrice()).orElse(updatedProduct.getPrice()));
     updatedProduct.setProductInfoId(Optional.ofNullable(product.getProductInfoId()).orElse(updatedProduct.getProductInfoId()));

@@ -18,8 +18,8 @@ public class CartService {
     return cartRepository.save(cart);
   }
 
-  public Cart update(Cart cart) throws Exception{
-    Cart updatedcart = cartRepository.findById(cart.getId()).orElseThrow(() -> new Exception("Cart not found"));
+  public Cart update(Cart cart, Long id) throws Exception{
+    Cart updatedcart = cartRepository.findById(id).orElseThrow(() -> new Exception("Cart not found"));
     
     updatedcart.setProducts(Optional.ofNullable(cart.getProducts()).orElse(updatedcart.getProducts()));
     
