@@ -6,8 +6,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - web',
-    title: 'web',
+    title: 'Bookzzz',
     htmlAttrs: {
       lang: 'en'
     },
@@ -56,13 +55,28 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          primary: colors.amber.darken2,
+          accent: colors.amber.accent4,
+          secondary: colors.amber.darken4,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          background: colors.grey.darken4,
+          vcard: colors.shades.black,
+          text: colors.shades.white
+        },
+        light: {
+          primary: colors.amber.darken2,
+          accent: colors.amber.accent4,
+          secondary: colors.amber.darken4,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3,
+          background: colors.grey.lighten4,
+          vcard: colors.shades.white,
+          text: colors.shades.black
         }
       }
     }

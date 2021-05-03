@@ -97,18 +97,23 @@ export default {
       items: [
         {
           icon: 'mdi-library',
-          title: 'Home',
-          to: '/'
+          title: 'Books',
+          to: '/admin/'
         },
         {
           icon: 'mdi-cart',
-          title: 'Cart',
-          to: '/cart'
+          title: 'Authors',
+          to: '/admin/authors'
         },
         {
           icon: 'mdi-library-shelves',
-          title: 'Orders',
-          to: '/orders'
+          title: 'Categories',
+          to: '/admin/categories'
+        },
+        {
+          icon: 'mdi-library-shelves',
+          title: 'Publishers',
+          to: '/admin/publishers'
         }
       ],
       miniVariant: true,
