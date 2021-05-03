@@ -21,5 +21,6 @@ public class User {
   private String password;
   private Long cartId;
   private List<Long> ordersIds;
+  private boolean isAdmin;
 
 }
