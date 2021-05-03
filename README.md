@@ -42,14 +42,34 @@ in case of any problems find help on this [link](https://docs.docker.com/compose
 
 ### Usage
 - ### Web online version
-- Access the Swagger-UI docs at [http://apis.bookzzz.tk/books/v1/docs](http://apis.bookzzz.tk/books/v1/docs)
-
+- Access the API Swagger-UI docs
+	- Books microservice at [http://apis.books.bookzzz.store/books/v1/docs](http://apis.books.bookzzz.store/books/v1/docs)
+	- Stock microservice at [http://apis.stock.bookzzz.store/books/v1/docs](http://apis.stock.bookzzz.store/books/v1/docs)
+	- Users microservice at [http://apis.users.bookzzz.store/books/v1/docs](http://apis.users.bookzzz.store/books/v1/docs)
+- Access the Web app at [https://bookzzz.vercel.app/](https://bookzzz.vercel.app/)
 - ### Localhost version
 - Start the terminal in this folder
 - On terminal simply type
-		
-		   ~/$ cd api
-		~/api$ docker-compose up 
+	- for Books microservice
+	
+			~/$ cd apis
+			~/$ cd api-books
+			~/api$ docker-compose up --build
+	- for Stock microservice
+
+			~/$ cd apis
+			~/$ cd api-stock
+			~/api$ docker-compose up --build
+	- for Users microservice
+	
+			~/$ cd apis
+			~/$ cd api-users
+			~/api$ docker-compose up --build
+			
+	- for Web APP
+	
+			~/$ cd web
+			~/$ yarn dev
 this two commands starts both the MySQL database and Spring Application (the application starts on port 80)
 - Access the Swagger-UI docs at [http://localhost/books/v1/docs](http://localhost/books/v1/docs)
 - Additionally you can open the [MySQL Workbench](https://www.mysql.com/products/workbench/) or a Generic Workbench (which supports MySQL like [Beekeeper Studio](https://www.beekeeperstudio.io/)) and connect to database over 
