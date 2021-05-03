@@ -1,5 +1,7 @@
 package tk.bookzzz.apistock.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +26,6 @@ public class Product {
   private int stockQuantity;
 
   @ManyToMany(mappedBy = "products")
-  private Order orders;
+  private List<Order> orders;
 
 }
