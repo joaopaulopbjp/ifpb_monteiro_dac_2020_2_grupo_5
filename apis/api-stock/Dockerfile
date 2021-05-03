@@ -6,7 +6,7 @@ RUN mvn package -DskipTests
 
 FROM openjdk:11-jre
 WORKDIR /app
-COPY --from=MAVEN_BUILD /build/target/api-stock-0.0.1-SNAPSHOT.jar /app/
+COPY --from=MAVEN_BUILD /build/target/api-0.0.1-SNAPSHOT.jar /app/
 ENTRYPOINT ["java", "-jar", "api-0.0.1-SNAPSHOT.jar"]
 EXPOSE 8080
 
