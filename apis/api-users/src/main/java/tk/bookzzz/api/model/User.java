@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ElementCollection;
 
 import lombok.Data;
 
@@ -20,6 +21,7 @@ public class User {
   private String email;
   private String password;
   private Long cartId;
+  @ElementColection
   private List<Long> ordersIds;
   private boolean isAdmin;
 
