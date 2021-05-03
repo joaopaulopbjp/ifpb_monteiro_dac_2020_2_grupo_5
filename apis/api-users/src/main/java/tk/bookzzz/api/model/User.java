@@ -21,7 +21,7 @@ public class User {
   private String email;
   private String password;
   private Long cartId;
-  @ElementColection
+  @ElementCollection
   private List<Long> ordersIds;
   private boolean isAdmin;
 
